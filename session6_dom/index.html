@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>lesson6 DOM</title>
+    <script src="hw_dom.js"></script>
+</head>
+<body>
+<div id="container">
+    <h1>list</h1>
+    <ul class="list">
+        <li>text1</li>
+        <li>text2</li>
+        <li>text3</li>
+    </ul>
+</div>
+
+<script>
+    var document = window.document;
+    // test 0
+    console.log(parseSelector('random'));
+    console.log(parseSelector('.list'));
+    console.log(parseSelector('li'));
+    console.log(parseSelector(document.querySelector('.list')));
+    console.log('----------------------------');
+
+    // test 1
+    console.log(parseSelectorSimple('bro'));
+    console.log(parseSelectorSimple('div'));
+    console.log(parseSelectorSimple('li'));
+    console.log('----------------------------');
+
+    // test2
+    var newLi = document.createElement('li');
+    var text = document.createTextNode('inserted as the next');
+    newLi.appendChild(text);
+    var reference = document.querySelectorAll('li')[1];
+    document.insertAfter(newLi, reference);
+
+    // test3
+    var el = document.querySelector('h1');
+    console.log(el.controlAttribute('style', 'color: red'));
+    console.log(el.controlAttribute('style'));
+
+    // test4
+    document.body.appendChild(board);
+</script>
+
+</body>
+</html>
