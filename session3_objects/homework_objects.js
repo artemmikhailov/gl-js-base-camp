@@ -179,12 +179,10 @@ function Buyer(garageInst, budget) {
     }
 
     function buyCar(carInst){
-        if (carInst.price > this.getBudget()) {
-            throw new Error('the budget is too small to buy car ' + carInst.model + ' with price ' + carInst.price);
+        if (carInst.price <= this.getBudget()) {
+            this.budget -= carInst.price;
+            this.garage.addCar(carInst);
         }
-
-        this.budget -= carInst.price;
-        this.garage.addCar(carInst);
     }
 }
 
@@ -196,11 +194,7 @@ function showRoom(buyerInst) {
         i = 0;
     for (i; i < 10; i++) {
         car = new Car('model_' + (i+1),  'vendor', Math.floor(Math.random() * 100));
-        try {
-            buyerInst.buyCar(car)
-        } catch (Error) {
-            console.log(Error.message);
-        }
+        buyerInst.buyCar(car)
     }
 }
 
