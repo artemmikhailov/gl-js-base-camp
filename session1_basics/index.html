@@ -20,7 +20,7 @@
 
 <script>
     getNumber([2, 7, 3, -7, 4], true);   // 7
-    getNumber([2, 7, 'test', 3, -7, 4], true);   // 7
+    getNumber([2, '7', 'test', 3, -7, 4], true);   // 4
     getNumber([2, 7, 'test', 3, -7, 4], false);  // -7
     getNumber(['test', 2, 7, 3, -7, 4], true);   // 7
     getNumber(['test', 2, NaN, 7, 3, -7, 4], true); // 7

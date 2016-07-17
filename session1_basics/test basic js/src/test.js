@@ -33,10 +33,7 @@ function compareByType(a, b) {
  Otherwise returns -1
 */
 function increase(value) {
-    if (!isNaN(value)) {
-        return value + 1;
-    }
-    return -1;
+    return typeof value === 'number' ? value + 1 : -1;
 }
 
 /*

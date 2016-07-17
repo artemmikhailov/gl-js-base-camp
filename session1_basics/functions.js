@@ -23,7 +23,7 @@ function greeting(hour) {
     function validate(hour) {
         var rangeFrom = 0,
             rangeTill = 24,
-            isNumber = !isNaN(hour);
+            isNumber = typeof hour === 'number' && !isNaN(hour);
         return isNumber && isBetween(hour, rangeFrom, rangeTill);
     }
 
@@ -46,7 +46,7 @@ function greeting(hour) {
  */
 function getNumber(numbers, isMaximum) {
     function isNumber(value) {
-        return !isNaN(value);
+        return typeof value === 'number' && !isNaN(value);
     }
     if (Array.isArray(numbers)) {
         var correctNumbers = numbers.filter(isNumber);
@@ -61,7 +61,7 @@ function getNumber(numbers, isMaximum) {
  * @param {*} value
  */
 function square(value) {
-    var isNumber = !isNaN(value),
+    var isNumber = typeof value === 'number' && !isNaN(value),
         divider = 2,
         exponent = 2,
         isMultiple;
