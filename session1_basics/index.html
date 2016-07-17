@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>session1 basics JS</title>
+    <script src="functions.js"></script>
+</head>
+<body>
+
+
+<script>
+    greeting(5);
+    greeting(-1);
+    greeting('test');
+    greeting(22);
+    greeting(1);
+    greeting(9);
+    console.log('----------------------------');
+</script>
+
+<script>
+    getNumber([2, 7, 3, -7, 4], true);   // 7
+    getNumber([2, 7, 'test', 3, -7, 4], true);   // 7
+    getNumber([2, 7, 'test', 3, -7, 4], false);  // -7
+    getNumber(['test', 2, 7, 3, -7, 4], true);   // 7
+    getNumber(['test', 2, NaN, 7, 3, -7, 4], true); // 7
+    console.log('----------------------------');
+</script>
+
+<script>
+    square(5);
+    square(4);
+    console.log('----------------------------');
+</script>
+
+<script>
+    compare(5,6);
+    compare(5,2);
+    console.log('----------------------------');
+</script>
+
+<script>
+    sum(5,7);
+    sum(5,2);
+    console.log('----------------------------');
+</script>
+
+<script>
+    areMultiples(6,3);
+    areMultiples(6,12);
+    areMultiples(5,7);
+    areMultiples(8,5);
+    console.log('----------------------------');
+</script>
+
+<script>
+    lastDigitsAreEqual(55, 105);
+    lastDigitsAreEqual(178, 98);
+    lastDigitsAreEqual(49, 67);
+    console.log('----------------------------');
+</script>
+
+<script>
+    displayElementsOfArray();
+    console.log('----------------------------');
+</script>
+
+<script>
+    isPalindrome('level');
+    isPalindrome('level ');
+    isPalindrome('   level ');
+    isPalindrome('leveL ');
+    isPalindrome('Was it a car or a cat I saw');
+    isPalindrome('A man, a plan, a canal, Panama');
+    console.log('----------------------------');
+</script>
+
+<script>
+    displayFizzBuzz();
+    console.log('----------------------------');
+</script>
+
+<script>
+    areVampireFangs(21, 60); // true
+    areVampireFangs(50,70); // false
+</script>
+
+</body>
+</html>
