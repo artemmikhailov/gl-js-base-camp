@@ -14,14 +14,6 @@ function checkStatus(response) {
 }
 
 /**
- * @param {Object} response
- * @returns {Promise}
- */
-function getJson(response) {
-    return response.json();
-}
-
-/**
  * @param {number} id
  */
 function getBookById(id) {
@@ -30,8 +22,8 @@ function getBookById(id) {
 
     fetch('api/books/' + id)
         .then(checkStatus)
-        .then(getJson)
-        .then(function (json) {
+        .then(function (response) {
+            var json = response.json();
             book.textContent = json.name;
         })
         .catch(function (err) {
@@ -53,40 +45,37 @@ function loadPage(bookId) {
 
     fetch('api/books/' + bookId)
         .then(checkStatus)
+        .then(function (response) {
+            var bookData = response.json();
+            book.textContent = bookData.name;
+            fetch('api/autors' + bookData.authorId)
+                .then(checkStatus)
+                .then(function (response) {
+                    var similarBooks,
+                        authorData = response.json();
+                    author.textContent = authorData.name;
+                    similarBooks = authorData.books.map(function (similarBookId) {
+                        return fetch('api/bestsellers/similar/' + similarBookId)
+                            .then(checkStatus)
+                            .then(function (response) {
+                                var p = document.createElement('p');
+                                p.textContent = response.text();
+                                similar.appendChild(p);
+                            })
+                            .catch(function (err) {
+                                similar.textContent = err.message;
+                            });
+                    });
+                    Promise.all(similarBooks)
+                        .then(function () {
+                            alert('Horray everything loaded');
+                        });
+                })
+                .catch(function (err) {
+                    author.textContent = err.message;
+                });
+        })
         .catch(function (err) {
             book.textContent = err.message;
-        })
-        .then(getJson)
-        .then(function (bookData) {
-            book.textContent = bookData.name;
-            return fetch('api/autors' + bookData.authorId);
-        })
-        .then(checkStatus)
-        .catch(function (err) {
-            author.textContent = err.message;
-        })
-        .then(getJson)
-        .then(function (authorData) {
-            var similarPromises;
-            author.textContent = authorData.name;
-            similarPromises = authorData.books.map(function (similarBookId) {
-                return fetch('api/bestsellers/similar/' + similarBookId)
-                    .then(checkStatus)
-                    .then(function (response) {
-                        return response.text();
-                    })
-                    .then(function (similarBookName) {
-                        var p = document.createElement('p');
-                        p.textContent = similarBookName;
-                        similar.appendChild(p);
-                    });
-            });
-            return Promise.all(similarPromises);
-        })
-        .then(function () {
-            alert('Horray everything loaded');
-        })
-        .catch(function (err) {
-            similar.textContent = err.message;
         });
 }
