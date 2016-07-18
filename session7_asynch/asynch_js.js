@@ -62,20 +62,24 @@ function loadPage(bookId) {
             var similarBooks;
             author.textContent = authorData.name;
             similarBooks = authorData.books.map(function (similarBookId) {
-                return fetch('api/bestsellers/similar/' + similarBookId)
-                    .then(checkStatus)
-                    .then(function (response) {
-                        return response.text();
-                    })
-                    .then(function (similarBookName) {
-                        var p = document.createElement('p');
-                        p.textContent = similarBookName;
-                        similar.appendChild(p);
-                    });
+                return fetch('api/bestsellers/similar/' + similarBookId);
             });
             return Promise.all(similarBooks);
         })
-        .then(function () {
+        .then(function (responses) {
+            return Promise.all(responses.map(checkStatus));
+        })
+        .then(function (responses) {
+            return Promise.all(responses.map(function (response) {
+                return response.text();
+            }));
+        })
+        .then(function (similarBooksNames) {
+            similarBooksNames.forEach(function (item) {
+                var p = document.createElement('p');
+                p.textContent = item;
+                similar.appendChild(p);
+            });
             alert('Horray everything loaded');
         })
         .catch(function (err) {
